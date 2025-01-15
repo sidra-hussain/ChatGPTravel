@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}
+    Sign Up
+{% endblock %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Itineraries</title>
+    <!-- Add any CSS styling here -->
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>My Itineraries</h1>
+    <p>Welcome, {{ user_email }}!</p>
+
+    <ul>
+        {% for itinerary in itineraries %}
+        <a href="{{ url_for('itinerary_display', id=itinerary[0], day=0) }}">Itinerary {{ itinerary[1]}}</a><br>
+        {% endfor %}
+    </ul>
+
+    <!-- Add any additional HTML content here -->
+
+    <!-- Add any JavaScript here -->
+    <script>
+        // Add your JavaScript code here
+    </script>
+</body>
+</html>
+{% endblock %}
+

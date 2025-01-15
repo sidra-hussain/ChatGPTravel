@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+{% block title %}
+    Itinerary Display
+{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Itinerary</title>
+    <style>
+        #container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #itinerary {
+            width: 45%;
+        }
+
+        #map {
+            height: 400px;
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Container for side-by-side layout -->
+<div id="container">
+
+    <!-- Travel Itinerary -->
+    <div id="itinerary">
+        <h1>Travel Itinerary</h1>
+        {% for index in range(plan|length) %}
+        <a href="/itinerary/{{id}}/{{index}}">
+            <h2>Day {{index+1}}</h2>
+        </a>
+        {% if opt == "ratings" %}
+        <ul>
+            {% for activity in plan[index] %}
+            <li><a href="{{ activity.website }}">{{ activity.name }}</a> -- {{activity.rating}} stars</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if opt == "cost" %}
+        <ul>
+            {% for activity in plan[index] %}
+            <li><a href="{{ activity.website }}">{{ activity.name }}</a> -- $ {{activity.cost_estimate}} </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if opt == "transit" %}
+        <ul>
+            {% for activity in plan[index] %}
+            <li><a href="{{ activity.website }}">{{ activity.name }}</a></li>
+            {% endfor %}
+            <li>Transit Time: {{transit_dict[index]}} minutes</li>
+        </ul>
+        {% endif %}
+        {% endfor %}
+
+    </div>
+
+    <!-- Map -->
+    <div id="map"></div>
+
+</div>
+
+<script>
+    // Initialize and add the map
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 14,
+            center: { lat: {{hotel_lat}} , lng: {{hotel_long}} } // Default center
+        });
+        
+        {% for activity in plan[num] %}
+            var marker{{ loop.num }} = new google.maps.Marker({
+                position: { lat: {{ activity.latitude }}, lng: {{ activity.longitude }} },
+                map: map,
+                title: '{{ activity.name }}'
+            });
+
+            // Create an info window for each marker
+            var infoWindow{{ loop.num}} = new google.maps.InfoWindow({
+                content: '{{ activity.name }}'
+            });
+
+            // Add click event listener to the marker
+            marker{{ loop.num }}.addListener('click', function () {
+                toggleInfoWindow(infoWindow{{ loop.num }});
+            });
+
+            // Open the info window by default
+            infoWindow{{ loop.num }}.open(map, marker{{ loop.num}});
+        {% endfor %}
+    }
+
+    // Function to toggle the visibility of an info window
+    function toggleInfoWindow(infoWindow) {
+        if (infoWindow.getMap()) {
+            infoWindow.close();
+        } else {
+            infoWindow.open(infoWindow.getMap());
+        }
+    }
+    
+</script>
+
+<!-- Include Google Maps API with timestamp -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkoGEvubht89vVi8M5Ox03yKIRH4DQiz4&callback=initMap&timestamp={{ timestamp }}" async defer></script>
+
+</body>
+</html>
+{% endblock %}

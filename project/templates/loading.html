@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block title %}
+    Loading...
+{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Optional: Add CSS styles -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+         /* Apply text-align: center; only to the loading text */
+         .loading-text {
+            text-align: center;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <h2 class="loading-text" > Generating Your Itinerary...</h2>
+    <h3 class="loading-text"> This may take a few minutes</h3>
+
+    <script>window.location.replace('/itinerary');</script>
+</body>
+</html>
+{% endblock %}

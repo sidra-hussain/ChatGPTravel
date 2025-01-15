@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}
+    Itinerary Details
+{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itinerary Details</title>
+    <!-- Add any CSS styling here -->
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>Itinerary Details</h1>
+    <p>User: {{ itinerary.user_email }}</p>
+    <p>Start Date: {{ itinerary.start_date }}</p>
+    <p>End Date: {{ itinerary.end_date }}</p>
+    <p>Hotel: {{ itinerary.hotel }}</p>
+    
+    <h2>Activities</h2>
+    <ul>
+        {% for activity in itinerary.activities %}
+        <li>
+            <strong>Name:</strong> {{ activity.name }}<br>
+            <strong>Address:</strong> {{ activity.address }}<br>
+            <strong>Latitude:</strong> {{ activity.latitude }}<br>
+            <strong>Longitude:</strong> {{ activity.longitude }}<br>
+            <!-- Add other activity details as needed -->
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Add any additional HTML content here -->
+
+    <!-- Add any JavaScript here -->
+    <script>
+        // Add your JavaScript code here
+    </script>
+</body>
+</html>
+{% endblock %}

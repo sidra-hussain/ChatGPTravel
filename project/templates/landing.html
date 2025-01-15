@@ -1,0 +1,213 @@
+{% extends "layout.html" %}
+{% block title %}
+    Home
+{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ChatGPTravel</title>
+    </head>
+    <body>
+        <h1>Tell us where you want to go, and we'll do the rest!</h1>
+
+        <form action="/loading" method="POST">
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Destination</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="inputDest" placeholder="Las Vegas" required="required">
+              </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Hotel Address</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" name="inputHotel" required="required">
+                </div>
+              </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Arrival</label>
+                <div class="col-sm-10">
+                  <input type="date" class="form-control" name="inputStartDate" id="startDate" required="required" oninput="myFunction2()">
+                  <script>
+                    var today = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth() + 1; //January is 0!
+                    var yyyy = today.getFullYear();
+                    
+                    if (dd < 10) {
+                       dd = '0' + dd;
+                    }
+                    
+                    if (mm < 10) {
+                       mm = '0' + mm;
+                    } 
+                        
+                    today = yyyy + '-' + mm + '-' + dd;
+                    document.getElementById("startDate").setAttribute("min", today);
+
+                    function myFunction2(){
+                      if (document.getElementById("startDate").value != ""){
+                        document.getElementById("endDate").disabled = false;
+                        var minDate = new Date(document.getElementById("startDate").value);
+                        minDate.setDate(minDate.getDate() + 1);
+                        var nextDate = minDate.toISOString().split('T')[0];
+                        // document.getElementById("endDate").setAttribute("min", document.getElementById("startDate").value);
+                        document.getElementById("endDate").setAttribute("min", nextDate);
+                      }
+                      else{
+                        document.getElementById("endDate").disabled = true;
+                        document.getElementById("endDate").value = "";
+                      }
+                    }
+                  </script>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Departure</label>
+                <div class="col-sm-10">
+                  <input type="date" class="form-control" name="inputEndDate" id="endDate" required="required" disabled="true">
+                  <script>
+                    var today = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth() + 1; //January is 0!
+                    var yyyy = today.getFullYear();
+
+                    if (dd < 10) {
+                      dd = '0' + dd
+                    }
+
+                    if (mm < 10) {
+                      mm = '0' + mm
+                    }
+
+                    today = yyyy + '-' + mm + '-' + dd;
+                    document.getElementById("endDate").setAttribute("min", today);
+                  </script>
+                </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Food Preferences</label>
+              <div class="col-sm-10">
+                <!-- <input type="text" class="form-control" name="inputFoodPrefs" placeholder="Mexican, Chinese, Italian" required="required"> -->
+
+                <select name="inputFoodPrefs" id="inputFoodPrefs" style="width:200px" multiple required="required">
+                  <option value="American">American</option>
+                  <option value="Mexican">Mexican</option>
+                  <option value="Spanish">Spanish</option>
+                  <option value="Chinese">Chinese</option>
+                  <option value="Japanese">Japanese</option>
+                  <option value="Indian">Indian</option>
+                  <option value="Thai">Thai</option>
+                  <option value="Greek">Greek</option>
+                  <option value="French">French</option>
+                  <option value="Italian">Italian</option>
+                </select>
+
+                <input class="form-check-input" type="checkbox" name="foodPrefCheck" id="foodPrefCheck" value="noFoodPref">
+                <label class="form-check-label" for="foodPrefCheck">
+                  No Food Preferences
+                </label>
+                <script>
+                  document.addEventListener("DOMContentLoaded", function() {
+                    var radioBtn = document.getElementById("foodPrefCheck");
+                    var inputFoodPrefs = document.getElementsByName("inputFoodPrefs")[0];
+                
+                    // Add event listener to the radio button
+                    radioBtn.addEventListener("change", function() {
+                      if (this.checked) {
+                        // Disable the input field and remove the 'required' attribute
+                        inputFoodPrefs.disabled = true;
+                        inputFoodPrefs.removeAttribute("required");
+                        inputFoodPrefs.value = "All";
+                      } else {
+                        // Enable the input field and add the 'required' attribute
+                        inputFoodPrefs.disabled = false;
+                        inputFoodPrefs.setAttribute("required", "required");
+                        inputFoodPrefs.value = "";
+                      }
+                    });
+                  });
+                </script>
+              </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Activity Preferences</label>
+              <div class="col-sm-10">
+                <!-- <input type="text" class="form-control" name="inputActivityPrefs" placeholder="Hiking, Museums, Shopping" required="required"> -->
+                <select name="inputActivityPrefs" id="inputActivityPrefs" style="width:200px" multiple required="required">
+                  <option value="Outdoors">Outdoors</option>
+                  <option value="Museums">Museums</option>
+                  <option value="Monuments and Memorials">Monuments and Memorials</option>
+                  <option value="Family Friendly">Family Friendly</option>
+                  <option value="Theater">Theater</option>
+                  <option value="Shopping">Shopping</option>
+                  <option value="City Tours">City Tours</option>
+                  <option value="Adventure">Adventure</option>
+                  <option value="History">History</option>
+                  <option value="Sports">Sports</option>
+                </select>
+
+                <input class="form-check-input" type="checkbox" name="foodPrefCheck" id="actPrefCheck" value="noActPref">
+                  <label class="form-check-label" for="actPrefCheck">
+                    No Activity Preferences
+                  </label>
+                  <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                      var radioBtn = document.getElementById("actPrefCheck");
+                      var inputActivityPrefs = document.getElementsByName("inputActivityPrefs")[0];
+                  
+                      // Add event listener to the radio button
+                      radioBtn.addEventListener("change", function() {
+                        if (this.checked) {
+                          // Disable the input field and remove the 'required' attribute
+                          inputActivityPrefs.disabled = true;
+                          inputActivityPrefs.removeAttribute("required");
+                          inputActivityPrefs.value = "All";
+                        } else {
+                          // Enable the input field and add the 'required' attribute
+                          inputActivityPrefs.disabled = false;
+                          inputActivityPrefs.setAttribute("required", "required");
+                          inputActivityPrefs.value = "";
+                        }
+                      });
+                    });
+                  </script>
+              </div>
+            </div>
+            <br>
+            <!-- <fieldset class="row mb-3"> -->
+              <legend class="col-form-label col-sm-2 pt-0">Optimizer</legend>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="optCheck" id="transitCheck" value="transit" checked>
+                  <label class="form-check-label" for="transitCheck">
+                    <!-- <div style="margin-left: 10px;"> -->
+                        Transit Time
+                    <!-- </div> -->
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="optCheck" id="costCheck" value="cost">
+                  <label class="form-check-label" for="costCheck">
+                    <!-- <div style="margin-left: 10px;"> -->
+                        Cost
+                    <!-- </div> -->
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="optCheck" id="ratingCheck" value="ratings">
+                  <label class="form-check-label" for="ratingCheck">
+                    <!-- <div style="margin-left: 10px;"> -->
+                        Ratings
+                    <!-- </div> -->
+                  </label>
+                </div>
+              </div>
+            <!-- </fieldset> -->
+            <br>
+            <div class="row justify-content-center">
+                <button type="submit" class="btn btn-primary" id="buildItin" style="height:50px;width:300px">Build Itinerary</button>
+            </div>
+          </form>
+    </body>
+</html>
+{% endblock %}

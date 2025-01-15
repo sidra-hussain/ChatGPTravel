@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}
+    Welcome
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1>Hello {{ user_email }}</h1>
+        <button onclick="location.href='/plan_trip'">Plan Your Trip</button>
+        <button onclick="location.href='/saved_itineraries'">View your Itineraries</button>
+    </div>
+{% endblock %}
+
+
+

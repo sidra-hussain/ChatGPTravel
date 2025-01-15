@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block title %}
+404 Error
+{% endblock %}
+{% block content %}
+<h1>Oops! Your request timed out, this can happen with large itineraries. Please try creating a smaller itinerary</h1> 
+<a href="{{ url_for('home') }}"><p>Click Here </a>To go to the Home Page</p> 
+
+{% endblock %}
