@@ -6,12 +6,6 @@ chatGPTravel bridges the gap between knowing where you want to travel to, but no
 # Overview
 The repository consists of general functionality to run the application as well as its supporting functions, data, and api parsing. The implmentation can be found in the project directory. 
 
-## Viewing and Using the Application
-
-Our project is publicly available at: http://3.140.37.87/
-
-It is running on an EC2 Server running ubuntu. If you would like to use the application we reccomend viewing this [guide](https://docs.google.com/document/d/1nw6ikTy9yNSUYZMvGe15j-BICmRgYBejXz2JEV_QxkI/edit)
-
 ## Installation Guide
 Our application utilizes multiple python libraries from Python 3.11.8. Therefore, please make sure you are running the correct version of python.
 
