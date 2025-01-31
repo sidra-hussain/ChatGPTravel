@@ -1,6 +1,15 @@
-GW Bachelor of Science in Computer Science Senior Design 2023-2024
+# ChatGPTravel: AI-Assisted Travel Planning  
 
-Team 404ERROR
+**The George Washington University – Bachelor of Science in Computer Science Senior Design (2023-2024)**  
+
+This senior design project was a collaborative effort between my team and me, earning the **Gary and Judy Bard Entrepreneurial Engineering Endowment Award** for innovation in entrepreneurship. The project was later ported from my school GitHub account after our team graduated.  
+
+## Team 404ERROR  
+- **Sidra Hussain**  
+- **Colin Ranck**  
+- **Sarah Jagerdeo**  
+- **Evan Fries**  
+
 # Introduction to chatGPTravel
 chatGPTravel bridges the gap between knowing where you want to travel to, but not knowing what to do at your destination once you arrive. Our service creates a travel itinerary for a user-specified location based on a selected optimization metric, such as cost, rating, or time and activity suggestions genrated using chatGPT 
 # Overview
