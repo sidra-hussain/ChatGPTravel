@@ -48,13 +48,4 @@ Run the project locally by navigating into the project folder and entering the b
 ```
 python3 -m flask run
 ```
-
-# Branches
-- main
-  - Central branch with integrated code used for running the project
-- fullstack-dev
-   - Stable development enviornment used for Spring 2024, majority of the code was merged and confirmed to work on this branch before being merged into the main branch
-- project-website
-  - To be used for set-up/maintenance of the website for our project
- 
   
